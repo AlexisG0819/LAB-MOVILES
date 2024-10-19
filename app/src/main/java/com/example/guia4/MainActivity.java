@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         btnAgregar = findViewById(R.id.btnTarea);
@@ -34,13 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
 
-        adapter = new MyAdapter(lstTareas);
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new MyAdapter(lstTareas);
-
         recyclerView.setAdapter(adapter);
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +47,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(MainActivity.this, EditTaskActivity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
+
+        adapter.setOnItemLongClickListener(new MyAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(int position) {
+                adapter.removeItem(position);
+            }
+        });
     }
 
     @Override

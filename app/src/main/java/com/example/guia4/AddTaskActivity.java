@@ -19,16 +19,16 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.Calendar;
 import java.util.Locale;
 
+
 public class AddTaskActivity extends AppCompatActivity {
 
     Button btnFecha, btnHora, btnGuardar;
     EditText edtTitulo, edtDescripcion, edtFecha, edtHora;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_add_task); // Asegúrate de que este es el layout correcto
 
         btnFecha = findViewById(R.id.btnFecha);
         btnHora = findViewById(R.id.btnHora);
@@ -41,7 +41,6 @@ public class AddTaskActivity extends AppCompatActivity {
         btnHora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Obtener la hora actual
                 final Calendar c = Calendar.getInstance();
                 int hour = c.get(Calendar.HOUR_OF_DAY);
                 int minute = c.get(Calendar.MINUTE);
@@ -56,15 +55,14 @@ public class AddTaskActivity extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
+
         btnFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Obtener la hora actual
                 final Calendar c = Calendar.getInstance();
                 int day = c.get(Calendar.DAY_OF_MONTH);
                 int month = c.get(Calendar.MONTH);
                 int year = c.get(Calendar.YEAR);
-
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddTaskActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -72,13 +70,12 @@ public class AddTaskActivity extends AppCompatActivity {
                         String FechaSelec = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
                         edtFecha.setText(FechaSelec);
                     }
-
                 }, year, month, day);
                 datePickerDialog.show();
             }
         });
 
-        btnGuardar.setOnClickListener(new View.OnClickListener(){
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Tareas tarea = new Tareas();
@@ -90,6 +87,5 @@ public class AddTaskActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }
